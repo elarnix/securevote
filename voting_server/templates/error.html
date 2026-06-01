@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Error{% endblock %}
+
+{% block content %}
+<article style="border-color: var(--pico-error-color);">
+    <header>
+        <h2 style="color: var(--pico-error-color);">Something went wrong</h2>
+    </header>
+    <p>{{ message }}</p>
+    <footer style="text-align: right;">
+        <a href="/" role="button">Back to Homepage</a>
+    </footer>
+</article>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - {{ poll.title }}{% endblock %}
+
+{% block content %}
+<header>
+    <hgroup>
+        <h1>{{ poll.title }}</h1>
+        <p>Admin Dashboard | Status: <mark>ACTIVE</mark></p>
+    </hgroup>
+</header>
+
+<div class="grid">
+    <article style="text-align: center;">
+        <header><strong>Current Turnout</strong></header>
+        <div style="margin: 1rem 0;">
+            <span style="font-size: 5rem; line-height: 1; font-weight: 800; color: var(--pico-primary);">
+                {{ poll.total_votes }}
+            </span>
+        </div>
+        <footer>Anonymous votes cast so far</footer>
+    </article>
+
+    <article>
+        <header><strong>Poll Settings</strong></header>
+        <small>
+            <dl>
+                <dt>Expires at:</dt>
+                <dd>{{ poll.expires_at }}</dd>
+                
+                <dt>Voting mode:</dt>
+                <dd>{{ 'Multiple choices allowed' if poll.allow_multiple else 'Single choice only' }}</dd>
+                
+                <dt>Poll ID:</dt>
+                <dd><code>{{ poll_id }}</code></dd>
+            </dl>
+        </small>
+    </article>
+</div>
+
+<article style="border: 2px solid var(--pico-del-color);">
+    <header>
+        <h4 style="color: var(--pico-del-color); margin-bottom: 0;">Danger Zone</h4>
+    </header>
+    <p>
+        Ending the poll is <strong>irreversible</strong>. This will decrypt the results 
+        and make them public to everyone with the link.
+    </p>
+    <form action="{{ url_for('admin_close', poll_id=poll_id) }}" method="POST">
+        <button type="submit" class="contrast" onclick="return confirm('Stop the election and reveal results?');">
+            Stop Election & Reveal Results
+        </button>
+    </form>
+</article>
+
+<p style="text-align: center;">
+    <small>Results are currently hidden to prevent tactical bias.</small>
+</p>
+{% endblock %}

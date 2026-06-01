@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Results - {{ poll_info.title }}{% endblock %}
+
+{% block content %}
+<article>
+    <header>
+        <hgroup>
+            <h1>{{ poll_info.title }}</h1>
+            <h2>Official Election Results</h2>
+        </hgroup>
+        <div class="grid">
+            <div>
+                <strong>Status:</strong> <mark style="background-color: #ffcccc; color: #cc0000;">CLOSED</mark>
+            </div>
+            <div style="text-align: right;">
+                <strong>Total turnout:</strong> {{ poll_info.total_votes }} voters
+            </div>
+        </div>
+    </header>
+
+    <div style="margin-top: 2rem;">
+        {% for item in final_results %}
+            <div style="margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                    <strong>{{ item.label }}</strong>
+                    <span>{{ item.votes }} votes ({{ item.percent }} %)</span>
+                </div>
+                <progress value="{{ item.percent }}" max="100"></progress>
+            </div>
+        {% endfor %}
+    </div>
+
+    <footer style="margin-top: 2rem;">
+    <div class="grid">
+        <div style="display: flex; gap: 10px;">
+            <a href="{{ url_for('download_results_csv', poll_id=poll_id) }}" class="outline secondary" role="button">
+                📥 Download CSV (Excel)
+            </a>
+            <a href="{{ url_for('download_verification_data', poll_id=poll_id) }}" class="outline secondary" role="button">
+                🔐 Verification Data (JSON)
+            </a>
+        </div>
+        <div style="text-align: right;">
+            <a href="/" role="button" class="outline">Back to Archive</a>
+        </div>
+    </div>
+    </footer>
+</article>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Thank you for voting{% endblock %}
+
+{% block content %}
+<article style="text-align: center; margin-top: 2rem;">
+    <header>
+        <h2 style="color: var(--pico-primary);">Vote Cast Successfully!</h2>
+    </header>
+    
+    <p>Your vote has been securely and anonymously recorded in the database.</p>
+    <p>Because the system uses <strong>blind signatures</strong>, your identity is completely disconnected from your vote.</p>
+    
+    <footer style="margin-top: 2rem;">
+        <a href="/" role="button" class="outline">Return to Homepage</a>
+    </footer>
+</article>
+{% endblock %}

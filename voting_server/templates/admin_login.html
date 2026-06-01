@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Admin login{% endblock %}
+
+{% block content %}
+<main class="container" style="max-width: 600px; margin-top: 50px;">
+        <article>
+            <header>
+                <hgroup>
+                    <h1>Poll Administration</h1>
+                    <p>Enter the credentials sent to your email.</p>
+                </hgroup>
+            </header>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  {% set bg_color = '#ffcccc' if category == 'error' else ('#ccffcc' if category == 'success' else '#e0e0e0') %}
+                  {% set text_color = '#cc0000' if category == 'error' else ('#006600' if category == 'success' else '#333333') %}
+                  <mark style="background-color: {{ bg_color }}; color: {{ text_color }}; padding: 10px; display: block; margin-bottom: 20px; border-radius: 5px;">
+                    {{ message }}
+                  </mark>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('admin_login', poll_id=poll_id) }}" method="POST">
+                <label for="poll_id">
+                    Poll ID:
+                    <input type="text" id="poll_id" name="poll_id" placeholder="e.g. 12345" value="{{ poll_id or '' }}" required>
+                </label>
+
+                <label for="password">
+                    Admin Password:
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </label>
+
+                <button type="submit" class="contrast">Login to Dashboard</button>
+            </form>
+        </article>
+    </main>
+{% endblock %}

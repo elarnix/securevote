@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Vote: {{ election.title }}{% endblock %}
+
+{% block content %}
+<article>
+    <h1>{{ election.title }}</h1>
+    <p>Please select your choice below. Your vote is anonymous.</p>
+    
+    <form id="voteForm">
+        {% for option in election.options %}
+            <label>
+                <input type="{% if election.allow_multiple %}checkbox{% else %}radio{% endif %}" 
+                       name="vote_option" value="{{ option }}">
+                {{ option }}
+            </label>
+        {% endfor %}
+
+        <input type="hidden" id="poll_id" value="{{ poll_id }}">
+        <input type="hidden" id="voter_token" value="{{ token }}">
+        <input type="hidden" id="authority_public_key" value="{{ election.public_key }}">
+        
+        <button type="submit" id="submitBtn" class="primary">Cast Vote</button>
+    </form>
+</article>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/libsodium-sumo@0.7.13"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libsodium-wrappers-sumo@0.7.13"></script>
+    <script src="{{ url_for('static', filename='js/client_crypto.js') }}"></script>
+{% endblock %}

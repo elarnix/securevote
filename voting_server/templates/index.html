@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Archive{% endblock %}
+
+{% block content %}
+<section>
+    <hgroup>
+        <h1>Election Archive</h1>
+        <h2>Search and verify past election results</h2>
+    </hgroup>
+
+    <form action="/" method="GET" role="search">
+        <input type="search" name="q" placeholder="Search by poll title..." value="{{ search_query }}">
+        <input type="submit" value="Search">
+    </form>
+</section>
+
+<section>
+    {% if polls %}
+        <table role="grid">
+            <thead>
+                <tr>
+                    <th>Poll Title</th>
+                    <th>Closed At</th>
+                    <th>Turnout</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for poll in polls %}
+                <tr>
+                    <td><strong>{{ poll.title }}</strong></td>
+                    <td><small>{{ poll.expires_at }}</small></td>
+                    <td>{{ poll.votes }} votes</td>
+                    <td>
+                        <a href="{{ url_for('public_results', poll_id=poll.poll_id) }}" class="outline">
+                            View Results
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <article style="text-align: center; padding: 3rem;">
+            <p>No archived polls found.</p>
+            {% if search_query %}
+                <a href="/">Show all archive</a>
+            {% endif %}
+        </article>
+    {% endif %}
+</section>
+{% endblock %}

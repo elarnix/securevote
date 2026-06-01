@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+</head>
+<body> 
+    <main class="container">
+        <h1> Create a new poll: </h1>
+
+            <form action="/create_voters" method="POST" onsubmit="document.getElementById('submitBtn').disabled = true; document.getElementById('submitBtn').innerText = 'Sending emails (may take a while)...';">
+                <label>Poll name: 
+                <input type="text" name="title" required>
+                </label>
+
+                <label>Creator email (for admin access):
+                <input type="email" name="creator_email" required placeholder="admin@email.cz">
+                </label>
+
+                <label>Options:
+                <textarea name="options" required placeholder="Each option on a new line"></textarea>
+                </label>
+
+                <label>
+                    <input type="checkbox" name="allow_multiple" value="true">
+                    Allow voters to select multiple options
+                </label>
+
+                <label>Voters (emails):
+                <textarea name="voters" required placeholder="Each voter email on a new line."></textarea>
+                </label>
+
+                <label>Expires at:
+                <input type="datetime-local" name="expires_at" required>
+                </label>
+
+                <button type="submit" id="submitBtn">Submit poll and send emails to voters</button>
+            </form>
+    </main>
+</body>
+</html>
+

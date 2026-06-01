@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<hgroup>
+    <h1>About the Project</h1>
+    <h2>Transparent and anonymous voting system</h2>
+</hgroup>
+
+<article>
+    <h3>How it works</h3>
+    <p>
+        This system uses <strong>Blind Signatures</strong> to ensure that your identity is 
+        completely disconnected from your vote. The voting server signs your ballot 
+        without seeing its content.
+    </p>
+    <ul>
+        <li><strong>Anonymity:</strong> Not even the administrator can see who you voted for.</li>
+        <li><strong>Integrity:</strong> Each vote is cryptographically signed and cannot be altered.</li>
+        <li><strong>Transparency:</strong> Once closed, results are public and verifiable.</li>
+    </ul>
+</article>
+
+<article>
+    <header><strong>Technology Stack</strong></header>
+    <div class="grid">
+        <div>
+            <h5>Backend</h5>
+            <ul>
+                <li>Python & Flask</li>
+                <li>PostgreSQL</li>
+            </ul>
+        </div>
+        <div>
+            <h5>Cryptography</h5>
+            <ul>
+                <li>Libsodium</li>
+                <li>Ed25519 Blind Signatures</li>
+            </ul>
+        </div>
+        <div>
+            <h5>Frontend</h5>
+            <ul>
+                <li>Jinja2</li>
+                <li>PicoCSS (v2)</li>
+            </ul>
+        </div>
+    </div>
+</article>
+{% endblock %}

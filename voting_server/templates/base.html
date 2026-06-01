@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{% block title %}Secure Voting System{% endblock %}</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <nav class="container">
+    <ul>
+        <li>
+        <a href="/" class="contrast"><strong>🗳️ SecureVote</strong></a>
+        </li>
+    </ul>
+    <ul>
+        <li><a href="/" class="secondary">Archive</a></li>
+        <li><a href="{{ authority_url }}" class="secondary">Create Poll</a></li>
+        <li><a href="/about" class="secondary">About</a></li>
+        
+        {% if active_poll_id %}
+        <li>
+            <details class="dropdown">
+            <summary role="link" class="outline">Manage Poll</summary>
+            <ul dir="rtl">
+                <li><a href="{{ url_for('admin_dashboard', poll_id=active_poll_id) }}">Dashboard</a></li>
+                <li><a href="{{ url_for('public_results', poll_id=active_poll_id) }}">Results</a></li>
+                <li>
+                    <a href="{{ url_for('admin_logout') }}" style="color: var(--pico-del-color);">
+                        Exit Admin
+                    </a>
+                </li>
+            </ul>
+            </details>
+        </li>
+        {% else %}
+            <li><a href="{{ url_for('admin_login') }}" role="button" class="outline">Admin Login</a></li>
+        {% endif %}
+    </ul>
+    </nav>
+
+    <main class="container">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <article style="padding: 1rem; margin-bottom: 1rem; border-left: 5px solid {% if category == 'error' %}#e53935{% else %}#43a047{% endif %};">
+                {{ message }}
+              </article>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

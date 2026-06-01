@@ -10,11 +10,11 @@ Architektura je z bezpečnostních důvodů striktně rozdělena na dva oddělen
 
 Systém se skládá z procesu vytvoření volby (Authority) a samotného hlasování (Voting).
 
-### 1. Vytvoření nové volby
-1. Otevřete v prohlížeči Authority Server (standardně `http://127.0.0.1:5001/`).
-2. Vyplňte formulář: název voleb, možnosti (každou na nový řádek) a e-mailové adresy voličů.
+### 1. Vytvoření nové ankety
+1. Otevřete v prohlížeči Authority Server (standardně `http://127.0.0.1:5001/` nebo `https://domena.trycloudfare.com/create_voters`).
+2. Vyplňte formulář: název ankety, možnosti (každou na nový řádek) a e-mailové adresy voličů.
 3. Systém vygeneruje bezpečný kryptografický klíč a každému voliči odešle unikátní, jednorázový odkaz na e-mail.
-4. Zakladatel voleb obdrží na svůj e-mail heslo pro administraci.
+4. Tvůrce ankety obdrží na svůj e-mail heslo pro administraci.
 
 ### 2. Průběh hlasování
 1. Volič klikne na "Magic Link" ve svém e-mailu.
@@ -23,7 +23,7 @@ Systém se skládá z procesu vytvoření volby (Authority) a samotného hlasov�
 4. Po úspěšném vhození je jednorázový token nenávratně zničen (obrana proti Replay útokům).
 
 ### 3. Administrace a Archiv
-- **Dashboard:** Na domovské stránce Voting serveru (`http://127.0.0.1:5002/`) klikněte na "Admin Login". Pomocí ID volby a hesla z e-mailu se přihlásíte do administrace, kde vidíte průběžnou volební účast a máte možnost volby předčasně ukončit.
+- **Dashboard:** Na domovské stránce Voting serveru (`http://127.0.0.1:5002/` nebo `https://domena.trycloudfare.com`) klikněte na "Admin Login". Pomocí ID volby a hesla z e-mailu se přihlásíte do administrace, kde vidíte průběžnou volební účast a máte možnost volby předčasně ukončit.
 - **Archiv:** Jakmile volbám vyprší čas (nebo jsou manuálně uzavřeny), výsledky se automaticky dešifrují a zveřejní v archivu na domovské stránce. Systém nepoužívá časově náročné Cron joby, ale efektivní "Ghost Admin" přístup (vyhodnocení expirace při dotazu).
 
 ---
@@ -61,7 +61,7 @@ GRANT ALL ON SCHEMA public TO voting_user;
 
 3. Nastavení Python prostředí
 
-V kořenovém adresáři obou serverů se nachází soubor environment.yml. Nainstalujte a aktivujte prostředí:
+V kořenovém adresáři voting serveru se nachází soubor environment.yml. Nainstalujte a aktivujte prostředí:
 
     conda env create -f environment.yml
     conda activate maturita_projekt
